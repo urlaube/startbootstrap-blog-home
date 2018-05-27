@@ -178,7 +178,7 @@
         $result = null;
 
         // convert the PAGEINFO to a pagename
-        if ("ArchiveHandler" === Handlers::ACTIVE()) {
+        if (ARCHIVE_HANDLER === Handlers::ACTIVE()) {
           $result = gl("Archiv").":".SP;
           if (isset(Main::PAGEINFO()[DAY])) {
             $result .= gl("Tag").SP.Main::PAGEINFO()[DAY].",".SP;
@@ -188,13 +188,13 @@
           }
           $result .= gl("Jahr").SP.Main::PAGEINFO()[YEAR];
         }
-        if ("AuthorHandler" === Handlers::ACTIVE()) {
+        if (AUTHOR_HANDLER === Handlers::ACTIVE()) {
           $result = gl("Autor").":".SP.Main::PAGEINFO()[AUTHOR];
         }
-        if ("CategoryHandler" === Handlers::ACTIVE()) {
+        if (CATEGORY_HANDLER === Handlers::ACTIVE()) {
           $result = gl("Kategorie").":".SP.Main::PAGEINFO()[CATEGORY];
         }
-        if ("SearchGetHandler" === Handlers::ACTIVE()) {
+        if (SEARCH_GET_HANDLER === Handlers::ACTIVE()) {
           $result = gl("Suche").":".SP.implode(SP, Main::PAGEINFO()[SEARCH]);
         }
 
@@ -208,8 +208,8 @@
           $result = Themes::get(PAGENAME).SP."|".SP.$result;
         } else {
           // handle errors and pages
-          if (("ErrorHandler" === Handlers::ACTIVE()) ||
-              ("PageHandler" === Handlers::ACTIVE())) {
+          if ((ERROR_HANDLER === Handlers::ACTIVE()) ||
+              (PAGE_HANDLER === Handlers::ACTIVE())) {
             // get the first entry of the content entries
             if (0 < count(Main::CONTENT())) {
               if (Main::CONTENT()[0]->isset(TITLE)) {

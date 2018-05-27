@@ -78,8 +78,8 @@
 
     // link the headline only when it's not an error or a single page single page
     $uri = null;
-    if (("ErrorHandler" !== Handlers::ACTIVE()) &&
-        ("PageHandler" !== Handlers::ACTIVE())) {
+    if ((ERROR_HANDLER !== Handlers::ACTIVE()) &&
+        (PAGE_HANDLER !== Handlers::ACTIVE())) {
       $uri = $content_item->(URI);
     }
 ?>

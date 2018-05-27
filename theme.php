@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a0
+    @version 0.1a1
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -17,7 +17,7 @@
   if (!defined("URLAUBE")) { die(""); }
 
   if (!class_exists("StartBootstrapBlogHome")) {
-    class StartBootstrapBlogHome implements Handler, Theme {
+    class StartBootstrapBlogHome extends Translatable implements Handler, Theme, Translation {
 
       // INTERFACE FUNCTIONS
 
@@ -35,12 +35,12 @@
 
       // HELPER FUNCTIONS
 
-      protected static function configureCSS() {
+      protected function configureCSS() {
         Themes::preset("dark_color",  "#666");
         Themes::preset("light_color", "#ccc");
       }
 
-      protected static function configureTheme() {
+      protected function configureTheme() {
         // static
         Themes::preset(LOGO,       null);
         Themes::preset(MENU,       array());
@@ -53,14 +53,14 @@
         Themes::preset(CANONICAL,   Main::URI());
         Themes::preset(CHARSET,     strtolower(Main::CHARSET()));
         Themes::preset(COPYRIGHT,   "Copyright &copy; ".Main::SITENAME()." ".date("Y"));
-        Themes::preset(DESCRIPTION, static::getDefaultDescription());
-        Themes::preset(KEYWORDS,    static::getDefaultKeywords());
-        Themes::preset(LANGUAGE,    static::getDefaultLanguage());
-        Themes::preset(PAGENAME,    static::getDefaultPagename());
-        Themes::preset(TITLE,       static::getDefaultTitle());
+        Themes::preset(DESCRIPTION, $this->getDefaultDescription());
+        Themes::preset(KEYWORDS,    $this->getDefaultKeywords());
+        Themes::preset(LANGUAGE,    $this->getDefaultLanguage());
+        Themes::preset(PAGENAME,    $this->getDefaultPagename());
+        Themes::preset(TITLE,       $this->getDefaultTitle());
       }
 
-      protected static function doBody() {
+      protected function doBody() {
         // call the before-body plugins
         Plugins::run(BEFORE_BODY);
 
@@ -70,11 +70,11 @@
         Plugins::run(AFTER_BODY);
       }
 
-      protected static function doCSS() {
+      protected function doCSS() {
         require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
       }
 
-      protected static function doFooter() {
+      protected function doFooter() {
         // call the before-footer plugins
         Plugins::run(BEFORE_FOOTER);
 
@@ -84,7 +84,7 @@
         Plugins::run(AFTER_FOOTER);
       }
 
-      protected static function doHead() {
+      protected function doHead() {
         // call the before-head plugins
         Plugins::run(BEFORE_HEAD);
 
@@ -94,7 +94,7 @@
         Plugins::run(AFTER_HEAD);
       }
 
-      protected static function getDefaultDescription() {
+      protected function getDefaultDescription() {
         $result = null;
 
         // get the first entry of the content entries
@@ -110,7 +110,7 @@
         return $result;
       }
 
-      protected static function getDefaultKeywords() {
+      protected function getDefaultKeywords() {
         $result = null;
 
         // retrieve all words from the titles
@@ -133,7 +133,7 @@
         return $result;
       }
 
-      protected static function getDefaultLanguage() {
+      protected function getDefaultLanguage() {
         $result = strtolower(Translations::LANGUAGE());
 
         // only take the first part if the language is of the form "ab_xy"
@@ -146,34 +146,34 @@
         return $result;
       }
 
-      protected static function getDefaultPagename() {
+      protected function getDefaultPagename() {
         $result = null;
 
         // convert the PAGEINFO to a pagename
         if ("ArchiveHandler" === Handlers::ACTIVE()) {
-          $result = "Archiv: ";
+          $result = gl("Archiv").":".SP;
           if (isset(Main::PAGEINFO()[DAY])) {
-            $result .= "Tag ".Main::PAGEINFO()[DAY].", ";
+            $result .= gl("Tag").SP.Main::PAGEINFO()[DAY].", ";
           }
           if (isset(Main::PAGEINFO()[MONTH])) {
-            $result .= "Monat ".Main::PAGEINFO()[MONTH].", ";
+            $result .= gl("Monat").SP.Main::PAGEINFO()[MONTH].", ";
           }
-          $result .= "Jahr ".Main::PAGEINFO()[YEAR];
+          $result .= gl("Jahr").SP.Main::PAGEINFO()[YEAR];
         }
         if ("AuthorHandler" === Handlers::ACTIVE()) {
-          $result = "Autor: ".Main::PAGEINFO()[AUTHOR];
+          $result = gl("Autor").":".SP.Main::PAGEINFO()[AUTHOR];
         }
         if ("CategoryHandler" === Handlers::ACTIVE()) {
-          $result = "Kategorie: ".Main::PAGEINFO()[CATEGORY];
+          $result = gl("Kategorie").":".SP.Main::PAGEINFO()[CATEGORY];
         }
         if ("SearchGetHandler" === Handlers::ACTIVE()) {
-          $result = "Suche: ".implode(SP, Main::PAGEINFO()[SEARCH]);
+          $result = gl("Suche").":".SP.implode(SP, Main::PAGEINFO()[SEARCH]);
         }
 
         return $result;
       }
 
-      protected static function getDefaultTitle() {
+      protected function getDefaultTitle() {
         $result = Main::SITESLOGAN()." | ".Main::SITENAME();
 
         if (null !== Themes::get(PAGENAME)) {
@@ -232,17 +232,17 @@
 
       // RUNTIME FUNCTIONS
 
-      public static function css() {
+      public function css() {
         // preset CSS file configuration
-        static::configureCSS();
+        $this->configureCSS();
 
         // generate the CSS file output
-        static::doCSS();
+        $this->doCSS();
 
         return true;
       }
 
-      public static function theme() {
+      public function theme() {
         $result = false;
 
         // we don't handle empty content
@@ -253,12 +253,12 @@
           }
 
           // preset theme configuration
-          static::configureTheme();
+          $this->configureTheme();
 
           // generate the output
-          static::doHead();
-          static::doBody();
-          static::doFooter();
+          $this->doHead();
+          $this->doBody();
+          $this->doFooter();
 
           $result = true;
         }
@@ -268,12 +268,16 @@
 
     }
 
+    // instantiate translatable theme
+    $theme = new StartbootstrapBlogHome();
+    $theme->setTranslationsPath(__DIR__.DS."lang".DS);
+
     // register handlers
-    Handlers::register("StartBootstrapBlogHome", "css",
+    Handlers::register($theme, "css",
                        "@^\/startbootstrap\-blog\-home\.css$@",
                        [GET], BEFORE_ADDSLASH);
 
     // register theme
-    Themes::register("StartBootstrapBlogHome", "theme", "startbootstrap-blog-home");
+    Themes::register($theme, "theme", "startbootstrap-blog-home");
   }
 

@@ -43,7 +43,7 @@
 
     // get the category string and covert it into an array
     $category = null;
-    $catvalue = $content_item->(CATEGORY);
+    $catvalue = $content_item->get(CATEGORY);
     if (is_string($catvalue)) {
       $catvalue = explode(SP, $catvalue);
       foreach ($catvalue as $catvalue_item) {
@@ -80,7 +80,7 @@
     $uri = null;
     if ((ERROR_HANDLER !== Handlers::ACTIVE()) &&
         (PAGE_HANDLER !== Handlers::ACTIVE())) {
-      $uri = $content_item->(URI);
+      $uri = $content_item->get(URI);
     }
 ?>
           <!-- <?= html($title); ?> Section -->

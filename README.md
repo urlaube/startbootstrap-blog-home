@@ -18,49 +18,16 @@ Config::THEME("dark_color",  "#666");
 Config::THEME("light_color", "#ccc");
 ```
 
+### Favicon URL
+You can set the URL of the favicon:
+```
+Config::THEME(FAVICON, null);
+```
+
 ### Logo image file
 You can set the following value to choose an image file as a logo:
 ```
 Config::THEME(LOGO, null);
-```
-
-### Copyright text
-You can set the following values to change the copyright text in the footer area. You can either choose auto-escaped text by setting `COPYRIGHT` or you can choose HTML by setting `"COPYRIGHT_HTML"`:
-```
-Config::THEME(COPYRIGHT, "Copyright &copy; ".Main::SITENAME()." ".date("Y"));
-```
-```
-Config::THEME("COPYRIGHT_HTML", null);
-```
-
-### Canonical URL
-You can overwrite the auto-generated canonical URL:
-```
-Config::THEME(CANONICAL, Main::URI());
-```
-
-### Charset
-You can overwrite the auto-generated charset:
-```
-Config::THEME(CHARSET, strtolower(Main::CHARSET()));
-```
-
-### Description
-You can overwrite the auto-generated description:
-```
-Config::THEME(DESCRIPTION, static::getDefaultDescription());
-```
-
-### Keywords
-You can overwrite the auto-generated keywords:
-```
-Config::THEME(KEYWORDS, static::getDefaultKeywords());
-```
-
-### Language
-You can overwrite the auto-generated language:
-```
-Config::THEME(LANGUAGE, static::getDefaultLanguage());
 ```
 
 ### Menu
@@ -75,12 +42,6 @@ Config::THEME(MENU, array(array(TITLE => "Linktext",   URI => "https://example.c
                           array(TITLE => "Linktext 2", URI => "https://example.net/")));
 ```
 
-### Pagename
-You can set the pagename text shown at the top of the page as the headline:
-```
-Config::THEME(PAGENAME,    static::getDefaultPagename());
-```
-
 ### Timeformat
 You can set the time format used to display the DATE value of the content:
 ```
@@ -89,9 +50,60 @@ Config::THEME(TIMEFORMAT, "d.m.Y");
 
 The value specified here has to be supported by PHP's [date()](http://php.net/manual/en/function.date.php) function.
 
+### Copyright text
+You can set the following values to change the copyright text in the footer area. You can either choose auto-escaped text by setting `COPYRIGHT` or you can choose HTML by setting `"COPYRIGHT_HTML"`:
+```
+Config::THEME(COPYRIGHT, $this->getDefaultCopyright());
+```
+```
+Config::THEME("COPYRIGHT_HTML", null);
+```
+
+### Author name
+You can overwrite the auto-generated author header:
+```
+Config::THEME(AUTHOR, $this->getDefaultAuthor());
+```
+
+### Canonical URL
+You can overwrite the auto-generated canonical URL:
+```
+Config::THEME(CANONICAL, $this->getDefaultCanonical());
+```
+
+### Charset
+You can overwrite the auto-generated charset:
+```
+Config::THEME(CHARSET, $this->getDefaultCharset());
+```
+
+### Description
+You can overwrite the auto-generated description:
+```
+Config::THEME(DESCRIPTION, $this->getDefaultDescription());
+```
+
+### Keywords
+You can overwrite the auto-generated keywords:
+```
+Config::THEME(KEYWORDS, $this->getDefaultKeywords());
+```
+
+### Language
+You can overwrite the auto-generated language:
+```
+Config::THEME(LANGUAGE, $this->getDefaultLanguage());
+```
+
+### Pagename
+You can set the pagename text shown at the top of the page as the headline:
+```
+Config::THEME(PAGENAME, $this->getDefaultPagename());
+```
+
 ### Title
 You can overwrite the auto-generated title:
 ```
-Config::THEME(TITLE, static::getDefaultTitle());
+Config::THEME(TITLE, $this->getDefaultTitle());
 ```
 

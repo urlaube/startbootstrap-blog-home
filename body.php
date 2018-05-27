@@ -34,16 +34,16 @@
 <?php
   // iterate through the content entries
   $index = 0;
-  foreach (Main::CONTENT() as $content_key => $content_item) {
+  foreach (Main::CONTENT() as $content_item) {
     $index++;
 
-    $author  = StartBootstrapBlogHome::get($content_key, AUTHOR);
-    $content = StartBootstrapBlogHome::get($content_key, CONTENT).NL;
-    $title   = StartBootstrapBlogHome::get($content_key, TITLE);
+    $author  = $content_item->get(AUTHOR);
+    $content = $content_item->get(CONTENT).NL;
+    $title   = $content_item->get(TITLE);
 
     // get the category string and covert it into an array
     $category = null;
-    $catvalue = StartBootstrapBlogHome::get($content_key, CATEGORY);
+    $catvalue = $content_item->(CATEGORY);
     if (is_string($catvalue)) {
       $catvalue = explode(SP, $catvalue);
       foreach ($catvalue as $catvalue_item) {
@@ -67,7 +67,7 @@
 
     // get the date and make sure that only parsable dates are displayed
     $date = null;
-    $time = StartBootstrapBlogHome::get($content_key, DATE);
+    $time = $content_item->get(DATE);
     if (is_string($time)) {
       $time = strtotime($time);
       if (false !== $time) {
@@ -80,7 +80,7 @@
     $uri = null;
     if (("ErrorHandler" !== Handlers::ACTIVE()) &&
         ("PageHandler" !== Handlers::ACTIVE())) {
-      $uri = StartBootstrapBlogHome::get($content_key, URI);
+      $uri = $content_item->(URI);
     }
 ?>
           <!-- <?= html($title); ?> Section -->

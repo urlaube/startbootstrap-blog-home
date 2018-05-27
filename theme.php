@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a1
+    @version 0.1a2
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -42,17 +42,19 @@
 
       protected function configureTheme() {
         // static
+        Themes::preset(FAVICON,    null);
         Themes::preset(LOGO,       null);
-        Themes::preset(MENU,       array());
+        Themes::preset(MENU,       null);
         Themes::preset(TIMEFORMAT, "d.m.Y");
 
         // individual static
         Themes::preset("COPYRIGHT_HTML", null);
 
         // derived
-        Themes::preset(CANONICAL,   Main::URI());
-        Themes::preset(CHARSET,     strtolower(Main::CHARSET()));
-        Themes::preset(COPYRIGHT,   "Copyright &copy; ".Main::SITENAME()." ".date("Y"));
+        Themes::preset(AUTHOR,      $this->getDefaultAuthor());
+        Themes::preset(CANONICAL,   $this->getDefaultCanonical());
+        Themes::preset(CHARSET,     $this->getDefaultCharset());
+        Themes::preset(COPYRIGHT,   $this->getDefaultCopyright());
         Themes::preset(DESCRIPTION, $this->getDefaultDescription());
         Themes::preset(KEYWORDS,    $this->getDefaultKeywords());
         Themes::preset(LANGUAGE,    $this->getDefaultLanguage());
@@ -94,6 +96,32 @@
         Plugins::run(AFTER_HEAD);
       }
 
+      protected function getDefaultAuthor() {
+        $result = null;
+
+        // try to retrieve the first author
+        foreach (Main::CONTENT() as $content_item) {
+          if ($content_item->isset(AUTHOR)) {
+            $result = $content_item->get(AUTHOR);
+            break;
+          }
+        }
+
+        return $result;
+      }
+
+      protected function getDefaultCanonical() {
+        return Main::URI();
+      }
+
+      protected function getDefaultCharset() {
+        return strtolower(Main::CHARSET());
+      }
+
+      protected function getDefaultCopyright() {
+        return "Copyright &copy;".SP.Main::SITENAME().SP.date("Y");
+      }
+
       protected function getDefaultDescription() {
         $result = null;
 
@@ -102,7 +130,7 @@
           if (Main::CONTENT()[0]->isset(CONTENT)) {
             // remove all HTML tags and replace line breaks with spaces
             $result = substr(strtr(strip_tags(Main::CONTENT()[0]->get(CONTENT)),
-                                   array("\r\n" => " ", "\n" => " ", "\r" => " ")),
+                                   array("\r\n" => SP, "\n" => SP, "\r" => SP)),
                              0, 300);
           }
         }
@@ -117,7 +145,7 @@
         $words = array();
         foreach (Main::CONTENT() as $content_item) {
           if ($content_item->isset(TITLE)) {
-            $words = array_merge($words, explode(" ", $content_item->get(TITLE)));
+            $words = array_merge($words, explode(SP, $content_item->get(TITLE)));
           }
         }
 
@@ -128,7 +156,7 @@
           }
         }
 
-        $result = implode(", ", $words);
+        $result = implode(",".SP, $words);
 
         return $result;
       }
@@ -153,10 +181,10 @@
         if ("ArchiveHandler" === Handlers::ACTIVE()) {
           $result = gl("Archiv").":".SP;
           if (isset(Main::PAGEINFO()[DAY])) {
-            $result .= gl("Tag").SP.Main::PAGEINFO()[DAY].", ";
+            $result .= gl("Tag").SP.Main::PAGEINFO()[DAY].",".SP;
           }
           if (isset(Main::PAGEINFO()[MONTH])) {
-            $result .= gl("Monat").SP.Main::PAGEINFO()[MONTH].", ";
+            $result .= gl("Monat").SP.Main::PAGEINFO()[MONTH].",".SP;
           }
           $result .= gl("Jahr").SP.Main::PAGEINFO()[YEAR];
         }
@@ -174,10 +202,10 @@
       }
 
       protected function getDefaultTitle() {
-        $result = Main::SITESLOGAN()." | ".Main::SITENAME();
+        $result = Main::SITESLOGAN().SP."|".SP.Main::SITENAME();
 
         if (null !== Themes::get(PAGENAME)) {
-          $result = Themes::get(PAGENAME)." | ".$result;
+          $result = Themes::get(PAGENAME).SP."|".SP.$result;
         } else {
           // handle errors and pages
           if (("ErrorHandler" === Handlers::ACTIVE()) ||
@@ -185,46 +213,10 @@
             // get the first entry of the content entries
             if (0 < count(Main::CONTENT())) {
               if (Main::CONTENT()[0]->isset(TITLE)) {
-                $result = Main::CONTENT()[0]->get(TITLE)." | ".$result;
+                $result = Main::CONTENT()[0]->get(TITLE).SP."|".SP.$result;
               }
             }
           }
-        }
-
-        return $result;
-      }
-
-      // SOURCECODE HELPER FUNCTION
-
-      public static function get($key, $name) {
-        $result = null;
-
-        if (array_key_exists($key, Main::CONTENT())) {
-          if (Main::CONTENT()[$key]->isset($name)) {
-            $result = Main::CONTENT()[$key]->get($name);
-          }
-        }
-
-        return $result;
-      }
-
-      public static function getLogo() {
-        // retrieve site title
-        $result = html(Main::SITENAME());
-
-        // use an image as logo
-        if (null !== Themes::get(LOGO)) {
-          $result = "<img src=\"".html(Themes::get(LOGO))."\" alt=\"".$result."\">";
-        }
-
-        return $result;
-      }
-
-      public static function isset($key, $name) {
-        $result = false;
-
-        if (array_key_exists($key, Main::CONTENT())) {
-          $result = Main::CONTENT()[$key]->isset($name);
         }
 
         return $result;

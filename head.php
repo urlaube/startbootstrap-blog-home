@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <?php
-  if (Themes::isset(AUTHOR)) {
+  if (null !== Themes::get(AUTHOR)) {
 ?>
     <meta name="author" content="<?= html(Themes::get(AUTHOR)) ?>">
 <?php
@@ -21,6 +21,14 @@
     <meta name="description" content="<?= html(Themes::get(DESCRIPTION)) ?>">
     <meta name="keywords" content="<?= html(Themes::get(KEYWORDS)) ?>">
 
+<?php
+  $feeduri = feeduri();
+  if (null !== $feeduri) {
+?>
+    <link rel="alternate" type="application/rss+xml" href="html($feeduri)" />
+<?php
+  }
+?>
     <link rel="canonical" href="<?= html(Themes::get(CANONICAL)) ?>">
 <?php
   $next = nextpage();
@@ -35,7 +43,7 @@
     <link rel="prev" href="<?= html($prev) ?>">
 <?php
   }
-  if (Themes::isset(FAVICON)) {
+  if (null !== Themes::get(FAVICON)) {
 ?>
     <link rel="shortcut icon" type="image/x-icon" href="<?= html(Themes::get(FAVICON)) ?>">
 <?php
@@ -68,7 +76,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand page-scroll" href="<?= html(Main::ROOTURI()) ?>"><?= StartBootstrapBlogHome::getLogo() ?></a>
+          <a class="navbar-brand page-scroll" href="<?= html(Main::ROOTURI()) ?>">
+<?php
+  if (null !== Themes::get(LOGO)) {
+?>
+            <img src="<?= html(Themes::get(LOGO)) ?>" alt="<?= html(Main::SITENAME()) ?>">
+<?php
+  } else {
+?>
+            <?= html(Main::SITENAME().NL) ?>
+<?php
+  }
+?>
+          </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

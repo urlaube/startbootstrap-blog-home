@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a3 (02.06.2018)
+### Feature
+* rewrote to use the new translation mechanism of Urlaube 0.1a4
+
 ## 0.1a2 (27.05.2018)
 ### Features
 * introduced support for feed URIs

@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a2
+    @version 0.1a3
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -17,7 +17,7 @@
   if (!defined("URLAUBE")) { die(""); }
 
   if (!class_exists("StartBootstrapBlogHome")) {
-    class StartBootstrapBlogHome extends Translatable implements Handler, Theme, Translation {
+    class StartBootstrapBlogHome extends Base implements Handler, Theme {
 
       // INTERFACE FUNCTIONS
 
@@ -35,12 +35,12 @@
 
       // HELPER FUNCTIONS
 
-      protected function configureCSS() {
+      protected static function configureCSS() {
         Themes::preset("dark_color",  "#666");
         Themes::preset("light_color", "#ccc");
       }
 
-      protected function configureTheme() {
+      protected static function configureTheme() {
         // static
         Themes::preset(FAVICON,    null);
         Themes::preset(LOGO,       null);
@@ -51,18 +51,18 @@
         Themes::preset("COPYRIGHT_HTML", null);
 
         // derived
-        Themes::preset(AUTHOR,      $this->getDefaultAuthor());
-        Themes::preset(CANONICAL,   $this->getDefaultCanonical());
-        Themes::preset(CHARSET,     $this->getDefaultCharset());
-        Themes::preset(COPYRIGHT,   $this->getDefaultCopyright());
-        Themes::preset(DESCRIPTION, $this->getDefaultDescription());
-        Themes::preset(KEYWORDS,    $this->getDefaultKeywords());
-        Themes::preset(LANGUAGE,    $this->getDefaultLanguage());
-        Themes::preset(PAGENAME,    $this->getDefaultPagename());
-        Themes::preset(TITLE,       $this->getDefaultTitle());
+        Themes::preset(AUTHOR,      static::getDefaultAuthor());
+        Themes::preset(CANONICAL,   static::getDefaultCanonical());
+        Themes::preset(CHARSET,     static::getDefaultCharset());
+        Themes::preset(COPYRIGHT,   static::getDefaultCopyright());
+        Themes::preset(DESCRIPTION, static::getDefaultDescription());
+        Themes::preset(KEYWORDS,    static::getDefaultKeywords());
+        Themes::preset(LANGUAGE,    static::getDefaultLanguage());
+        Themes::preset(PAGENAME,    static::getDefaultPagename());
+        Themes::preset(TITLE,       static::getDefaultTitle());
       }
 
-      protected function doBody() {
+      protected static function doBody() {
         // call the before-body plugins
         Plugins::run(BEFORE_BODY);
 
@@ -72,11 +72,11 @@
         Plugins::run(AFTER_BODY);
       }
 
-      protected function doCSS() {
+      protected static function doCSS() {
         require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
       }
 
-      protected function doFooter() {
+      protected static function doFooter() {
         // call the before-footer plugins
         Plugins::run(BEFORE_FOOTER);
 
@@ -86,7 +86,7 @@
         Plugins::run(AFTER_FOOTER);
       }
 
-      protected function doHead() {
+      protected static function doHead() {
         // call the before-head plugins
         Plugins::run(BEFORE_HEAD);
 
@@ -96,7 +96,7 @@
         Plugins::run(AFTER_HEAD);
       }
 
-      protected function getDefaultAuthor() {
+      protected static function getDefaultAuthor() {
         $result = null;
 
         // try to retrieve the first author
@@ -110,19 +110,19 @@
         return $result;
       }
 
-      protected function getDefaultCanonical() {
+      protected static function getDefaultCanonical() {
         return Main::URI();
       }
 
-      protected function getDefaultCharset() {
+      protected static function getDefaultCharset() {
         return strtolower(Main::CHARSET());
       }
 
-      protected function getDefaultCopyright() {
+      protected static function getDefaultCopyright() {
         return "Copyright &copy;".SP.Main::SITENAME().SP.date("Y");
       }
 
-      protected function getDefaultDescription() {
+      protected static function getDefaultDescription() {
         $result = null;
 
         // get the first entry of the content entries
@@ -138,7 +138,7 @@
         return $result;
       }
 
-      protected function getDefaultKeywords() {
+      protected static function getDefaultKeywords() {
         $result = null;
 
         // retrieve all words from the titles
@@ -161,7 +161,7 @@
         return $result;
       }
 
-      protected function getDefaultLanguage() {
+      protected static function getDefaultLanguage() {
         $result = strtolower(Translations::LANGUAGE());
 
         // only take the first part if the language is of the form "ab_xy"
@@ -174,34 +174,34 @@
         return $result;
       }
 
-      protected function getDefaultPagename() {
+      protected static function getDefaultPagename() {
         $result = null;
 
         // convert the PAGEINFO to a pagename
         if (ARCHIVE_HANDLER === Handlers::ACTIVE()) {
-          $result = gl("Archiv").":".SP;
+          $result = t("Archiv", "StartBootstrapBlogHome").":".SP;
           if (isset(Main::PAGEINFO()[DAY])) {
-            $result .= gl("Tag").SP.Main::PAGEINFO()[DAY].",".SP;
+            $result .= t("Tag", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[DAY].",".SP;
           }
           if (isset(Main::PAGEINFO()[MONTH])) {
-            $result .= gl("Monat").SP.Main::PAGEINFO()[MONTH].",".SP;
+            $result .= t("Monat", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[MONTH].",".SP;
           }
-          $result .= gl("Jahr").SP.Main::PAGEINFO()[YEAR];
+          $result .= t("Jahr", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[YEAR];
         }
         if (AUTHOR_HANDLER === Handlers::ACTIVE()) {
-          $result = gl("Autor").":".SP.Main::PAGEINFO()[AUTHOR];
+          $result = t("Autor", "StartBootstrapBlogHome").":".SP.Main::PAGEINFO()[AUTHOR];
         }
         if (CATEGORY_HANDLER === Handlers::ACTIVE()) {
-          $result = gl("Kategorie").":".SP.Main::PAGEINFO()[CATEGORY];
+          $result = t("Kategorie", "StartBootstrapBlogHome").":".SP.Main::PAGEINFO()[CATEGORY];
         }
         if (SEARCH_GET_HANDLER === Handlers::ACTIVE()) {
-          $result = gl("Suche").":".SP.implode(SP, Main::PAGEINFO()[SEARCH]);
+          $result = t("Suche", "StartBootstrapBlogHome").":".SP.implode(SP, Main::PAGEINFO()[SEARCH]);
         }
 
         return $result;
       }
 
-      protected function getDefaultTitle() {
+      protected static function getDefaultTitle() {
         $result = Main::SITESLOGAN().SP."|".SP.Main::SITENAME();
 
         if (null !== Themes::get(PAGENAME)) {
@@ -224,17 +224,17 @@
 
       // RUNTIME FUNCTIONS
 
-      public function css() {
+      public static function css() {
         // preset CSS file configuration
-        $this->configureCSS();
+        static::configureCSS();
 
         // generate the CSS file output
-        $this->doCSS();
+        static::doCSS();
 
         return true;
       }
 
-      public function theme() {
+      public static function theme() {
         $result = false;
 
         // we don't handle empty content
@@ -245,12 +245,12 @@
           }
 
           // preset theme configuration
-          $this->configureTheme();
+          static::configureTheme();
 
           // generate the output
-          $this->doHead();
-          $this->doBody();
-          $this->doFooter();
+          static::doHead();
+          static::doBody();
+          static::doFooter();
 
           $result = true;
         }
@@ -260,16 +260,15 @@
 
     }
 
-    // instantiate translatable theme
-    $theme = new StartbootstrapBlogHome();
-    $theme->setTranslationsPath(__DIR__.DS."lang".DS);
-
     // register handlers
-    Handlers::register($theme, "css",
+    Handlers::register("StartBootstrapBlogHome", "css",
                        "@^\/startbootstrap\-blog\-home\.css$@",
                        [GET], BEFORE_ADDSLASH);
 
     // register theme
-    Themes::register($theme, "theme", "startbootstrap-blog-home");
+    Themes::register("StartBootstrapBlogHome", "theme", "startbootstrap-blog-home");
+
+    // register translation
+    Translate::register(__DIR__.DS."lang".DS, "StartBootstrapBlogHome");
   }
 

@@ -162,7 +162,7 @@
       }
 
       protected static function getDefaultLanguage() {
-        $result = strtolower(Translations::LANGUAGE());
+        $result = strtolower(Translate::LANGUAGE());
 
         // only take the first part if the language is of the form "ab_xy"
         if (1 === preg_match("@^([a-z]+)\_[a-z]+$@", $result, $matches)) {

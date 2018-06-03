@@ -27,19 +27,25 @@ html {
 
 @media(min-width:767px) {
   .navbar {
-    padding: 20px 0;
-    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    transition: background .5s ease-in-out,padding .5s ease-in-out;
+    padding            : 20px 0;
+    -webkit-transition : background .5s ease-in-out,padding .5s ease-in-out;
+    -moz-transition    : background .5s ease-in-out,padding .5s ease-in-out;
+    transition         : background .5s ease-in-out,padding .5s ease-in-out;
   }
 
   .top-nav-collapse {
-    padding: 0;
+    padding : 0;
   }
 }
 
+.navbrand {
+  padding     : 5px 15px;
+  font-size   : 28px;
+  line-height : 38px;
+}
+
 .navbar-brand>img {
-  height : 25px;
+  height : 40px;
 }
 
 .navbar-default {

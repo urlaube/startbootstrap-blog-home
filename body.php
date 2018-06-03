@@ -164,6 +164,9 @@
               <li class="<?= (null === $prev) ? "disabled" : "" ?>">
                 <a href="<?= html($prev) ?>">&laquo;</a>
               </li>
+              <li class="disabled">
+                <a href="<?= html(curpage()) ?>"><?= html(Main::PAGENUMBER()) ?></a>
+              </li>
               <li class="<?= (null === $next) ? "disabled" : "" ?>">
                 <a href="<?= html($next) ?>">&raquo;</a>
               </li>

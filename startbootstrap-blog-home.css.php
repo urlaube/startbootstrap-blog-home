@@ -39,9 +39,9 @@ html {
 }
 
 .navbrand {
-  padding     : 5px 15px;
-  font-size   : 28px;
-  line-height : 38px;
+  padding     : 5px 15px !important;
+  font-size   : 28px !important;
+  line-height : 38px !important;
 }
 
 .navbar-brand>img {

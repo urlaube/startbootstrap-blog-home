@@ -181,7 +181,7 @@
         </div>
 <?php
   // execute widget plugins and check that some have returned
-  $widgets = Plugins::run(FILTER_WIDGETS, true, Plugins::run(ON_WIDGETS));
+  $widgets = widgets();
   if (is_array($widgets) && (0 < count($widgets))) {
 ?>
         <!-- Sidebar Content -->

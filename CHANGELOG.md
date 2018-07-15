@@ -1,11 +1,15 @@
 # Changelog
 
+## 0.1a5 (15.07.2018)
+### Features
+* rewrote to use the new `value()` function of the Urlaube core
+
 ## 0.1a4 (10.06.2018)
-### Feature
+### Features
 * rewrote to use the new `widgets()` function of the Urlaube core
 
 ## 0.1a3 (02.06.2018)
-### Feature
+### Features
 * rewrote to use the new translation mechanism of Urlaube 0.1a4
 
 ## 0.1a2 (27.05.2018)

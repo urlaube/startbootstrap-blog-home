@@ -37,13 +37,13 @@
   foreach (Main::CONTENT() as $content_item) {
     $index++;
 
-    $author  = $content_item->get(AUTHOR);
-    $content = $content_item->get(CONTENT).NL;
-    $title   = $content_item->get(TITLE);
+    $author  = value($content_item, AUTHOR);
+    $content = value($content_item, CONTENT).NL;
+    $title   = value($content_item, TITLE);
 
     // get the category string and covert it into an array
     $category = null;
-    $catvalue = $content_item->get(CATEGORY);
+    $catvalue = value($content_item, CATEGORY);
     if (is_string($catvalue)) {
       $catvalue = explode(SP, $catvalue);
       foreach ($catvalue as $catvalue_item) {
@@ -67,7 +67,7 @@
 
     // get the date and make sure that only parsable dates are displayed
     $date = null;
-    $time = $content_item->get(DATE);
+    $time = value($content_item, DATE);
     if (is_string($time)) {
       $time = strtotime($time);
       if (false !== $time) {
@@ -80,7 +80,7 @@
     $uri = null;
     if ((ERROR_HANDLER !== Handlers::ACTIVE()) &&
         (PAGE_HANDLER !== Handlers::ACTIVE())) {
-      $uri = $content_item->get(URI);
+      $uri = value($content_item, URI);
     }
 ?>
           <!-- <?= html($title); ?> Section -->
@@ -192,8 +192,8 @@
     // iterate through the content entries
     foreach ($widgets as $widgets_item) {
       if ($widgets_item instanceof Content) {
-        $title   = $widgets_item->get(TITLE);
-        $content = $widgets_item->get(CONTENT).NL;
+        $title   = value($widgets_item, TITLE);
+        $content = value($widgets_item, CONTENT).NL;
 ?>
               <div class="well">
                 <h4><?= html($title) ?></h4>

@@ -3,6 +3,7 @@
 ## 0.1a6 (12.09.2018)
 ### Features
 * optimized look of the theme
+* added sticky glyph
 
 ## 0.1a5 (15.07.2018)
 ### Features

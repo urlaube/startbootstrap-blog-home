@@ -39,6 +39,7 @@
 
     $author  = value($content_item, AUTHOR);
     $content = value($content_item, CONTENT).NL;
+    $sticky  = value($content_item, STICKY);
     $title   = value($content_item, TITLE);
 
     // get the category string and covert it into an array
@@ -136,6 +137,11 @@
               <a href="<?= html($link) ?>"><?= html($category_item) ?></a>
 <?php
         }
+      }
+      if (istrue($sticky)) {
+?>
+              <span class="glyphicon glyphicon-alert"></span>
+<?php
       }
 ?>
             </p>

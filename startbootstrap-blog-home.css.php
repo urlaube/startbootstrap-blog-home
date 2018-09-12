@@ -117,7 +117,10 @@ section ul {
   overflow-wrap : break-word;
 }
 
-section p {
+section p,
+section pre,
+section ol,
+section ul {
   display    : block;
   font-size  : 18px;
   text-align : justify;

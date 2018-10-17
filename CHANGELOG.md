@@ -2,7 +2,9 @@
 
 ## 0.1a9 (17.10.2018)
 ### Bugfixes
-* * improve how code blocks look like
+* improve how code blocks look like
+* changed `array()` to `[]` shortcodes
+* prevent mismatching category names from triggering a warning
 
 ## 0.1a8 (17.10.2018)
 ### Features

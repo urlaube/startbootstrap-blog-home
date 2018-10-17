@@ -51,7 +51,7 @@
         // make sure that only valid characters are contained
         if (1 === preg_match("~^[0-9A-Za-z\_\-]+$~", $catvalue_item)) {
           if (null === $category) {
-            $category = array();
+            $category = [];
           }
 
           // add category as lowercase string
@@ -59,11 +59,13 @@
         }
       }
 
-      // remove duplicates
-      $category = array_unique($category);
+      if (null !== $category) {
+        // remove duplicates
+        $category = array_unique($category);
 
-      // sort the categories
-      sort($category);
+        // sort the categories
+        sort($category);
+      }
     }
 
     // get the date and make sure that only parsable dates are displayed

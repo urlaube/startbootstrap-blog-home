@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a8
+    @version 0.1a9
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */

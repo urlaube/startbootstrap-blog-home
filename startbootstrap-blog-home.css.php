@@ -117,8 +117,11 @@ section ul {
   overflow-wrap : break-word;
 }
 
+section pre code {
+  white-space : pre;
+}
+
 section p,
-section pre,
 section ol,
 section ul {
   display    : block;

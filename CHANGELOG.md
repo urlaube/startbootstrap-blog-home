@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a9 (17.10.2018)
+### Bugfixes
+* * improve how code blocks look like
+
 ## 0.1a8 (17.10.2018)
 ### Features
 * added support for BEFORE_SIDEBAR and AFTER_SIDEBAR plugins

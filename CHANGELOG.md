@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a8 (17.10.2018)
+### Features
+* added support for BEFORE_SIDEBAR and AFTER_SIDEBAR plugins
+
 ## 0.1a7 (17.10.2018)
 ### Features
 * updated theme to be compatible with Urlaube 0.1a7

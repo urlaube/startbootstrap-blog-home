@@ -191,6 +191,8 @@
 ?>
         </div>
 <?php
+  Plugins::run(BEFORE_SIDEBAR);
+
   // execute widget plugins and check that some have returned
   $widgets = widgets();
   if (is_array($widgets) && (0 < count($widgets))) {
@@ -219,6 +221,8 @@
         </div>
 <?php
   }
+
+  Plugins::run(AFTER_SIDEBAR);
 ?>
       </div>
     </div>

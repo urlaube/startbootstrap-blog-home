@@ -49,8 +49,8 @@ html {
 }
 
 .navbar-default {
-  background   : <?= html(Themes::get("dark_color")) ?>;
-  border-color : <?= html(Themes::get("dark_color")) ?>;
+  background   : <?= html(value(Themes::class, "dark_color")) ?>;
+  border-color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
 .navbar-default .navbar-brand,
@@ -68,7 +68,7 @@ html {
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-  background : <?= html(Themes::get("light_color")) ?>;
+  background : <?= html(value(Themes::class, "light_color")) ?>;
   color      : #111111;
 }
 
@@ -91,7 +91,7 @@ section h4 a:focus,
 section h4 a:hover,
 section h5 a:focus,
 section h5 a:hover {
-  color : <?= html(Themes::get("dark_color")) ?>;
+  color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
 section img {
@@ -127,7 +127,7 @@ section ul {
 }
 
 section p a {
-  color : <?= html(Themes::get("dark_color")) ?>;
+  color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
 section p a:focus,
@@ -155,7 +155,7 @@ section p a:hover {
 }
 
 .footer-section {
-  background     : <?= html(Themes::get("dark_color")) ?> !important;
+  background     : <?= html(value(Themes::class, "dark_color")) ?> !important;
   color          : #eeeeee !important;
   padding-bottom : 50px !important;
   padding-top    : 50px !important;
@@ -178,4 +178,3 @@ section p a:hover {
 .hidden-border div.panel-body {
   padding : 0;
 }
-

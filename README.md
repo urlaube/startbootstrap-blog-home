@@ -3,9 +3,10 @@ The StartBootstrap-Blog-Home theme is a multi-page theme for [Urlaube](https://g
 
 ## Installation
 Place the folder containing the theme into your themes directory located at `./user/themes/`.
+
 Finally, add the following line to your configuration file located at `./user/config/config.php` to select the theme:
 ```
-Config::THEMENAME("startbootstrap-blog-home");
+Main::set(THEMENAME, StartbootstrapBlogHome::class);
 ```
 
 ## Configuration
@@ -14,96 +15,107 @@ To configure the theme you can change the corresponding settings in your configu
 ### Colors
 You can set the following values to change the color scheme of the theme:
 ```
-Config::THEME("dark_color",  "#666");
-Config::THEME("light_color", "#ccc");
-```
-
-### Favicon URL
-You can set the URL of the favicon:
-```
-Config::THEME(FAVICON, null);
-```
-
-### Logo image file
-You can set the following value to choose an image file as a logo:
-```
-Config::THEME(LOGO, null);
-```
-
-### Menu
-You can set the content of the site's menu:
-```
-Config::THEME(MENU, null);
-```
-
-The menu content has to be set as an array containing associative arrays for each element:
-```
-Config::THEME(MENU, array(array(TITLE => "Linktext",   URI => "https://example.com/"),
-                          array(TITLE => "Linktext 2", URI => "https://example.net/")));
-```
-
-### Timeformat
-You can set the time format used to display the DATE value of the content:
-```
-Config::THEME(TIMEFORMAT, "d.m.Y");
-```
-
-The value specified here has to be supported by PHP's [date()](http://php.net/manual/en/function.date.php) function.
-
-### Copyright text
-You can set the following values to change the copyright text in the footer area. You can either choose auto-escaped text by setting `COPYRIGHT` or you can choose HTML by setting `"COPYRIGHT_HTML"`:
-```
-Config::THEME(COPYRIGHT, $this->getDefaultCopyright());
-```
-```
-Config::THEME("COPYRIGHT_HTML", null);
+Themes::set("dark_color",  "#666");
+Themes::set("light_color", "#ccc");
 ```
 
 ### Author name
 You can overwrite the auto-generated author header:
 ```
-Config::THEME(AUTHOR, $this->getDefaultAuthor());
+Themes::set(AUTHOR, $static::getDefaultAuthor());
 ```
 
 ### Canonical URL
-You can overwrite the auto-generated canonical URL:
+You can overwrite the auto-generated canonical URL header:
 ```
-Config::THEME(CANONICAL, $this->getDefaultCanonical());
+Themes::set(CANONICAL, static::getDefaultCanonical());
 ```
 
 ### Charset
-You can overwrite the auto-generated charset:
+You can overwrite the auto-generated charset header:
 ```
-Config::THEME(CHARSET, $this->getDefaultCharset());
+Themes::set(CHARSET, static::getDefaultCharset());
+```
+
+### Copyright text
+You can set the following values to change the copyright text in the footer area. You can either choose auto-escaped text by setting `COPYRIGHT` or you can choose HTML by setting `"copyright_html"`:
+```
+Themes::set(COPYRIGHT, static::getDefaultCopyright());
+```
+```
+Themes::set("copyright_html", null);
 ```
 
 ### Description
-You can overwrite the auto-generated description:
+You can overwrite the auto-generated description header:
 ```
-Config::THEME(DESCRIPTION, $this->getDefaultDescription());
+Themes::set(DESCRIPTION, static::getDefaultDescription());
+```
+
+### Favicon URL
+You can set the URL of the favicon:
+```
+Themes::set(FAVICON, null);
 ```
 
 ### Keywords
-You can overwrite the auto-generated keywords:
+You can overwrite the auto-generated keywords header:
 ```
-Config::THEME(KEYWORDS, $this->getDefaultKeywords());
+Themes::set(KEYWORDS, static::getDefaultKeywords());
 ```
 
 ### Language
-You can overwrite the auto-generated language:
+You can overwrite the auto-generated language header:
 ```
-Config::THEME(LANGUAGE, $this->getDefaultLanguage());
+Themes::set(LANGUAGE, static::getDefaultLanguage());
+```
+
+### Logo image file
+You can set the URL of an image file that is used as a website logo:
+```
+Themes::set(LOGO, null);
+```
+
+### Menu
+You can set the content of the site's menu:
+```
+Themes::set(MENU, null);
+```
+
+The menu content has to be set as an array containing associative arrays for each element:
+```
+Themes::set(MENU, [[TITLE => "Linktext",   URI => "https://example.com/"],
+                   [TITLE => "Linktext 2", URI => "https://example.net/"]]);
 ```
 
 ### Pagename
-You can set the pagename text shown at the top of the page as the headline:
+You can overwrite the auto-generated page name that is used as an H1 headline:
 ```
-Config::THEME(PAGENAME, $this->getDefaultPagename());
+Themes::set(PAGENAME, static::getDefaultPagename());
 ```
+
+### Sitename
+You can overwrite the preset site name that is used a text logo and in the auto-generated title header:
+```
+Themes::set(SITENAME, t("Deine Webseite", static::class));
+```
+
+### Siteslogan
+You can overwrite the preset site slogan that is used in the auto-generated title header:
+```
+Themes::set(SITESLOGAN, t("Dein Slogan", static::class));
+```
+
+### Timeformat
+You can set the time format used to display the DATE value of the content:
+```
+Themes::set(TIMEFORMAT, "d.m.Y");
+```
+
+The value specified here has to be supported by PHP's [date()](http://php.net/manual/en/function.date.php) function.
 
 ### Title
-You can overwrite the auto-generated title:
+You can overwrite the auto-generated title header:
 ```
-Config::THEME(TITLE, $this->getDefaultTitle());
+Themes::set(TITLE, static::getDefaultTitle());
 ```
-

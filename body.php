@@ -8,7 +8,7 @@
     <section id="empty" class="empty-section">
     </section>
 <?php
-  if (null !== Themes::get(PAGENAME)) {
+  if (null !== value(Themes::class, PAGENAME)) {
 ?>
     <div class="container">
       <div class="row">
@@ -17,7 +17,7 @@
           <!-- Content Section containing the header text -->
           <section id="header-text" class="header-section">
             <h1 class="page-header">
-              <?= html(Themes::get(PAGENAME)) ?>
+              <?= html(value(Themes::class, PAGENAME)) ?>
             </h1>
           </section>
         </div>
@@ -34,7 +34,7 @@
 <?php
   // iterate through the content entries
   $index = 0;
-  foreach (Main::CONTENT() as $content_item) {
+  foreach (value(Main::class, CONTENT) as $content_item) {
     $index++;
 
     $author  = value($content_item, AUTHOR);
@@ -49,7 +49,7 @@
       $catvalue = explode(SP, $catvalue);
       foreach ($catvalue as $catvalue_item) {
         // make sure that only valid characters are contained
-        if (1 === preg_match("@^[0-9A-Za-z\_\-]+$@", $catvalue_item)) {
+        if (1 === preg_match("~^[0-9A-Za-z\_\-]+$~", $catvalue_item)) {
           if (null === $category) {
             $category = array();
           }
@@ -72,15 +72,15 @@
     if (is_string($time)) {
       $time = strtotime($time);
       if (false !== $time) {
-        $date = date(Themes::get(TIMEFORMAT), $time);
+        $date = date(value(Themes::class, TIMEFORMAT), $time);
         $time = getdate($time);
       }
     }
 
     // link the headline only when it's not an error or a single page single page
     $uri = null;
-    if ((ERROR_HANDLER !== Handlers::ACTIVE()) &&
-        (PAGE_HANDLER !== Handlers::ACTIVE())) {
+    if ((ErrorHandler::class !== Handlers::getActive()) &&
+        (PageHandler::class !== Handlers::getActive())) {
       $uri = value($content_item, URI);
     }
 ?>
@@ -108,19 +108,23 @@
 ?>
             <p>
 <?php
+      $metadata = new Content();
+
       if (null !== $date) {
-        $link = ArchiveHandler::getUri(array(DAY   => $time["mday"],
-                                             MONTH => $time["mon"],
-                                             YEAR  => $time["year"],
-                                             PAGE  => 1));
+        $metadata->set(ArchiveHandler::DAY,   $time["mday"]);
+        $metadata->set(ArchiveHandler::MONTH, $time["mon"]);
+        $metadata->set(ArchiveHandler::YEAR,  $time["year"]);
+
+        $link = ArchiveHandler::getUri($metadata);
 ?>
               <span class="glyphicon glyphicon-time"></span>
               <a href="<?= html($link) ?>"><?= html($date) ?></a>
 <?php
       }
       if (null !== $author) {
-        $link = AuthorHandler::getUri(array(AUTHOR => $author,
-                                            PAGE   => 1));
+        $metadata->set(AUTHOR, $author);
+
+        $link = AuthorHandler::getUri($metadata);
 ?>
               <span class="glyphicon glyphicon-user"></span>
               <a href="<?= html($link) ?>"><?= html($author) ?></a>
@@ -131,8 +135,9 @@
               <span class="glyphicon glyphicon-tag"></span>
 <?php
         foreach ($category as $category_item) {
-          $link = CategoryHandler::getUri(array(CATEGORY => $category_item,
-                                                PAGE     => 1));
+          $metadata->set(CATEGORY, $category_item);
+
+          $link = CategoryHandler::getUri($metadata);
 ?>
               <a href="<?= html($link) ?>"><?= html($category_item) ?></a>
 <?php
@@ -155,7 +160,7 @@
   }
 
   // check if pagination is needed
-  if (1 < Main::PAGEMAX()) {
+  if (1 < value(Main::class, PAGECOUNT)) {
     $first = firstpage();
     $last  = lastpage();
     $next  = nextpage();
@@ -171,7 +176,7 @@
                 <a href="<?= html($prev) ?>">&laquo;</a>
               </li>
               <li class="disabled">
-                <a href="<?= html(curpage()) ?>"><?= html(Main::PAGENUMBER()) ?></a>
+                <a href="<?= html(curpage()) ?>"><?= html(value(Main::class, PAGE)) ?></a>
               </li>
               <li class="<?= (null === $next) ? "disabled" : "" ?>">
                 <a href="<?= html($next) ?>">&raquo;</a>

@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a6
+    @version 0.1a7
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -16,259 +16,278 @@
   // prevent script from getting called directly
   if (!defined("URLAUBE")) { die(""); }
 
-  if (!class_exists("StartBootstrapBlogHome")) {
-    class StartBootstrapBlogHome extends Base implements Handler, Theme {
+  class StartBootstrapBlogHome extends BaseSingleton implements Handler, Theme {
 
-      // INTERFACE FUNCTIONS
+    // CONSTANTS
 
-      public static function getContent($info) {
-        return null;
+    const REGEX = "~^\/startbootstrap\-blog\-home\.css$~";
+
+    // INTERFACE FUNCTIONS
+
+    public static function getContent($metadata, &$pagecount) {
+      return null;
+    }
+
+    public static function getUri($metadata) {
+      return value(Main::class, ROOTURI)."startbootstrap-blog-home.css";
+    }
+
+    public static function parseUri($uri) {
+      $result = null;
+
+      $metadata = preparecontent(parseuri($uri, static::REGEX));
+      if ($metadata instanceof Content) {
+        $result = $metadata;
       }
 
-      public static function getUri($info) {
-        return null;
-      }
+      return $result;
+    }
 
-      public static function parseUri($uri) {
-        return null;
-      }
+    // HELPER FUNCTIONS
 
-      // HELPER FUNCTIONS
+    protected static function configureHandler() {
+      Themes::preset("dark_color",  "#666");
+      Themes::preset("light_color", "#ccc");
+    }
 
-      protected static function configureCSS() {
-        Themes::preset("dark_color",  "#666");
-        Themes::preset("light_color", "#ccc");
-      }
+    protected static function configureTheme() {
+      // individual theme configuration
+      Themes::preset("copyright_html", null);
 
-      protected static function configureTheme() {
-        // static
-        Themes::preset(FAVICON,    null);
-        Themes::preset(LOGO,       null);
-        Themes::preset(MENU,       null);
-        Themes::preset(TIMEFORMAT, "d.m.Y");
+      // recommended theme configuration
+      Themes::preset(AUTHOR,      static::getDefaultAuthor());
+      Themes::preset(CANONICAL,   static::getDefaultCanonical());
+      Themes::preset(CHARSET,     static::getDefaultCharset());
+      Themes::preset(COPYRIGHT,   static::getDefaultCopyright());
+      Themes::preset(DESCRIPTION, static::getDefaultDescription());
+      Themes::preset(FAVICON,     null);
+      Themes::preset(KEYWORDS,    static::getDefaultKeywords());
+      Themes::preset(LANGUAGE,    static::getDefaultLanguage());
+      Themes::preset(LOGO,        null);
+      Themes::preset(MENU,        null);
+      Themes::preset(PAGENAME,    static::getDefaultPagename());
+      Themes::preset(SITENAME,    t("Deine Webseite", static::class));
+      Themes::preset(SITESLOGAN,  t("Dein Slogan", static::class));
+      Themes::preset(TIMEFORMAT,  "d.m.Y");
+      Themes::preset(TITLE,       static::getDefaultTitle());
+    }
 
-        // individual static
-        Themes::preset("COPYRIGHT_HTML", null);
+    protected static function getDefaultAuthor() {
+      $result = null;
 
-        // derived
-        Themes::preset(AUTHOR,      static::getDefaultAuthor());
-        Themes::preset(CANONICAL,   static::getDefaultCanonical());
-        Themes::preset(CHARSET,     static::getDefaultCharset());
-        Themes::preset(COPYRIGHT,   static::getDefaultCopyright());
-        Themes::preset(DESCRIPTION, static::getDefaultDescription());
-        Themes::preset(KEYWORDS,    static::getDefaultKeywords());
-        Themes::preset(LANGUAGE,    static::getDefaultLanguage());
-        Themes::preset(PAGENAME,    static::getDefaultPagename());
-        Themes::preset(TITLE,       static::getDefaultTitle());
-      }
-
-      protected static function doBody() {
-        // call the before-body plugins
-        Plugins::run(BEFORE_BODY);
-
-        require_once(__DIR__.DS."body.php");
-
-        // call the after-body plugins
-        Plugins::run(AFTER_BODY);
-      }
-
-      protected static function doCSS() {
-        require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
-      }
-
-      protected static function doFooter() {
-        // call the before-footer plugins
-        Plugins::run(BEFORE_FOOTER);
-
-        require_once(__DIR__.DS."footer.php");
-
-        // call the after-footer plugins
-        Plugins::run(AFTER_FOOTER);
-      }
-
-      protected static function doHead() {
-        // call the before-head plugins
-        Plugins::run(BEFORE_HEAD);
-
-        require_once(__DIR__.DS."head.php");
-
-        // call the after-head plugins
-        Plugins::run(AFTER_HEAD);
-      }
-
-      protected static function getDefaultAuthor() {
-        $result = null;
-
-        // try to retrieve the first author
-        foreach (Main::CONTENT() as $content_item) {
-          if ($content_item->isset(AUTHOR)) {
-            $result = value($content_item, AUTHOR);
-            break;
-          }
+      // try to retrieve the first author
+      foreach (value(Main::class, CONTENT) as $content_item) {
+        if ($content_item->isset(AUTHOR)) {
+          $result = value($content_item, AUTHOR);
+          break;
         }
-
-        return $result;
       }
 
-      protected static function getDefaultCanonical() {
-        return Main::URI();
+      return $result;
+    }
+
+    protected static function getDefaultCanonical() {
+      return value(Main::class, URI);
+    }
+
+    protected static function getDefaultCharset() {
+      return strtolower(value(Main::class, CHARSET));
+    }
+
+    protected static function getDefaultCopyright() {
+      return "Copyright &copy;".SP.value(Themes::class, SITENAME).SP.date("Y");
+    }
+
+    protected static function getDefaultDescription() {
+      $result = null;
+
+      // get the first entry of the content entries
+      if (0 < count(value(Main::class, CONTENT))) {
+        if (value(Main::class, CONTENT)[0]->isset(CONTENT)) {
+          // remove all HTML tags and replace line breaks with spaces
+          $result = substr(strtr(strip_tags(value(value(Main::class, CONTENT)[0], CONTENT)),
+                                 array("\r\n" => SP, "\n" => SP, "\r" => SP)),
+                           0, 300);
+        }
       }
 
-      protected static function getDefaultCharset() {
-        return strtolower(Main::CHARSET());
+      return $result;
+    }
+
+    protected static function getDefaultKeywords() {
+      $result = null;
+
+      // retrieve all words from the titles
+      $words = array();
+      foreach (value(Main::class, CONTENT) as $content_item) {
+        if ($content_item->isset(TITLE)) {
+          $words = array_merge($words, explode(SP, value($content_item, TITLE)));
+        }
       }
 
-      protected static function getDefaultCopyright() {
-        return "Copyright &copy;".SP.Main::SITENAME().SP.date("Y");
+      // filter all words that do not fit the scheme
+      for ($index = count($words)-1; $index >= 0; $index--) {
+        if (1 !== preg_match("~^[0-9A-Za-z\-]+$~", $words[$index])) {
+          unset($words[$index]);
+        }
       }
 
-      protected static function getDefaultDescription() {
-        $result = null;
+      $result = implode(",".SP, $words);
 
-        // get the first entry of the content entries
-        if (0 < count(Main::CONTENT())) {
-          if (Main::CONTENT()[0]->isset(CONTENT)) {
-            // remove all HTML tags and replace line breaks with spaces
-            $result = substr(strtr(strip_tags(value(Main::CONTENT()[0], CONTENT)),
-                                   array("\r\n" => SP, "\n" => SP, "\r" => SP)),
-                             0, 300);
-          }
+      return $result;
+    }
+
+    protected static function getDefaultLanguage() {
+      $result = strtolower(value(Main::class, LANGUAGE));
+
+      // only take the first part if the language is of the form "ab_xy"
+      if (1 === preg_match("~^([a-z]+)\_[a-z]+$~", $result, $matches)) {
+        if (2 === count($matches)) {
+          $result = $matches[1];
         }
-
-        return $result;
       }
 
-      protected static function getDefaultKeywords() {
-        $result = null;
+      return $result;
+    }
 
-        // retrieve all words from the titles
-        $words = array();
-        foreach (Main::CONTENT() as $content_item) {
-          if ($content_item->isset(TITLE)) {
-            $words = array_merge($words, explode(SP, value($content_item, TITLE)));
-          }
-        }
+    protected static function getDefaultPagename() {
+      $result = null;
 
-        // filter all words that do not fit the scheme
-        for ($index = count($words)-1; $index >= 0; $index--) {
-          if (1 !== preg_match("@^[0-9A-Za-z\-]+$@", $words[$index])) {
-            unset($words[$index]);
-          }
-        }
+      // convert the METADATA to a pagename
+      $metadata = value(Main::class, METADATA);
+      if ($metadata instanceof Content) {
+        switch (Handlers::getActive()) {
+          case ArchiveHandler::class:
+            if ((null !== value($metadata, ArchiveHandler::DAY)) ||
+                (null !== value($metadata, ArchiveHandler::MONTH)) ||
+                (null !== value($metadata, ArchiveHandler::YEAR))) {
+              $result = t("Archiv", StartBootstrapBlogHome::class).":".SP;
 
-        $result = implode(",".SP, $words);
-
-        return $result;
-      }
-
-      protected static function getDefaultLanguage() {
-        $result = strtolower(Translate::LANGUAGE());
-
-        // only take the first part if the language is of the form "ab_xy"
-        if (1 === preg_match("@^([a-z]+)\_[a-z]+$@", $result, $matches)) {
-          if (2 === count($matches)) {
-            $result = $matches[1];
-          }
-        }
-
-        return $result;
-      }
-
-      protected static function getDefaultPagename() {
-        $result = null;
-
-        // convert the PAGEINFO to a pagename
-        if (ARCHIVE_HANDLER === Handlers::ACTIVE()) {
-          $result = t("Archiv", "StartBootstrapBlogHome").":".SP;
-          if (isset(Main::PAGEINFO()[DAY])) {
-            $result .= t("Tag", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[DAY].",".SP;
-          }
-          if (isset(Main::PAGEINFO()[MONTH])) {
-            $result .= t("Monat", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[MONTH].",".SP;
-          }
-          $result .= t("Jahr", "StartBootstrapBlogHome").SP.Main::PAGEINFO()[YEAR];
-        }
-        if (AUTHOR_HANDLER === Handlers::ACTIVE()) {
-          $result = t("Autor", "StartBootstrapBlogHome").":".SP.Main::PAGEINFO()[AUTHOR];
-        }
-        if (CATEGORY_HANDLER === Handlers::ACTIVE()) {
-          $result = t("Kategorie", "StartBootstrapBlogHome").":".SP.Main::PAGEINFO()[CATEGORY];
-        }
-        if (SEARCH_GET_HANDLER === Handlers::ACTIVE()) {
-          $result = t("Suche", "StartBootstrapBlogHome").":".SP.implode(SP, Main::PAGEINFO()[SEARCH]);
-        }
-
-        return $result;
-      }
-
-      protected static function getDefaultTitle() {
-        $result = Main::SITESLOGAN().SP."|".SP.Main::SITENAME();
-
-        if (null !== Themes::get(PAGENAME)) {
-          $result = Themes::get(PAGENAME).SP."|".SP.$result;
-        } else {
-          // handle errors and pages
-          if ((ERROR_HANDLER === Handlers::ACTIVE()) ||
-              (PAGE_HANDLER === Handlers::ACTIVE())) {
-            // get the first entry of the content entries
-            if (0 < count(Main::CONTENT())) {
-              if (Main::CONTENT()[0]->isset(TITLE)) {
-                $result = value(Main::CONTENT()[0], TITLE).SP."|".SP.$result;
+              $parts = [];            
+              if (null !== value($metadata, ArchiveHandler::DAY)) {
+                $parts[] .= t("Tag", StartBootstrapBlogHome::class).SP.value($metadata, ArchiveHandler::DAY);
               }
+              if (null !== value($metadata, ArchiveHandler::MONTH)) {
+                $parts[] .= t("Monat", StartBootstrapBlogHome::class).SP.value($metadata, ArchiveHandler::MONTH);
+              }
+              if (null !== value($metadata, ArchiveHandler::YEAR)) {
+                $parts[] .= t("Jahr", StartBootstrapBlogHome::class).SP.value($metadata, ArchiveHandler::YEAR);
+              }
+
+              $result .= implode(",".SP, $parts);
+            }
+            break;
+
+          case AuthorHandler::class:
+            $result = t("Autor", StartBootstrapBlogHome::class).":".SP.value($metadata, AUTHOR);
+            break;
+
+          case CategoryHandler::class:
+            $result = t("Kategorie", StartBootstrapBlogHome::class).":".SP.value($metadata, CATEGORY);
+            break;
+
+          case SearchHandler::class:
+            $result = t("Suche", StartBootstrapBlogHome::class).":".SP.strtr(value($metadata, SearchHandler::SEARCH), DOT, SP);
+            break; 
+        }
+      }
+
+      return $result;
+    }
+
+    protected static function getDefaultTitle() {
+      $result = value(Themes::class, SITESLOGAN).SP."|".SP.value(Themes::class, SITENAME);
+
+      if (null !== value(Themes::class, PAGENAME)) {
+        $result = value(Themes::class, PAGENAME).SP."|".SP.$result;
+      } else {
+        // handle errors and pages
+        if ((ErrorHandler::class === Handlers::getActive()) ||
+            (PageHandler::class === Handlers::getActive())) {
+          // get the first entry of the content entries
+          if (0 < count(value(Main::class, CONTENT))) {
+            if (value(Main::class, CONTENT)[0]->isset(TITLE)) {
+              $result = value(value(Main::class, CONTENT)[0], TITLE).SP."|".SP.$result;
             }
           }
         }
-
-        return $result;
       }
 
-      // RUNTIME FUNCTIONS
-
-      public static function css() {
-        // preset CSS file configuration
-        static::configureCSS();
-
-        // generate the CSS file output
-        static::doCSS();
-
-        return true;
-      }
-
-      public static function theme() {
-        $result = false;
-
-        // we don't handle empty content
-        if (null !== Main::CONTENT()) {
-          // make sure that we only handle arrays
-          if (Main::CONTENT() instanceof Content) {
-            Main::CONTENT(array(Main::CONTENT()));
-          }
-
-          // preset theme configuration
-          static::configureTheme();
-
-          // generate the output
-          static::doHead();
-          static::doBody();
-          static::doFooter();
-
-          $result = true;
-        }
-
-        return $result;
-      }
-
+      return $result;
     }
 
-    // register handlers
-    Handlers::register("StartBootstrapBlogHome", "css",
-                       "@^\/startbootstrap\-blog\-home\.css$@",
-                       [GET], BEFORE_ADDSLASH);
+    // RUNTIME FUNCTIONS
 
-    // register theme
-    Themes::register("StartBootstrapBlogHome", "theme", "startbootstrap-blog-home");
+    public static function handler() {
+     $result = false;
 
-    // register translation
-    Translate::register(__DIR__.DS."lang".DS, "StartBootstrapBlogHome");
+      $metadata = static::parseUri(relativeuri());
+      if (null !== $metadata) {
+        // check if the URI is correct
+        $fixed = static::getUri($metadata);
+        if (0 !== strcmp(value(Main::class, URI), $fixed)) {
+          relocate($fixed, false, true);
+
+          // we handled this page
+          $result = true;
+        } else {
+          // preset handler configuration
+          static::configureHandler();
+
+          // generate the CSS file output
+          require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
+
+          // we handled this page
+          $result = true;
+        }
+      }
+
+      return $result;
+    }
+
+    public static function theme() {
+      $result = false;
+
+      // we do not handle empty content
+      $content = preparecontent(value(Main::class, CONTENT));
+      if (null !== $content) {
+        // make sure that we only handle arrays
+        if ($content instanceof Content) {
+          Main::set(CONTENT, [$content]);
+        }
+
+        // preset theme configuration
+        static::configureTheme();
+
+        // generate the head output
+        Plugins::run(BEFORE_HEAD);
+        require_once(__DIR__.DS."head.php");
+        Plugins::run(AFTER_HEAD);
+
+        // generate the body output
+        Plugins::run(BEFORE_BODY);
+        require_once(__DIR__.DS."body.php");
+        Plugins::run(AFTER_BODY);
+
+        // generate the footer output
+        Plugins::run(BEFORE_FOOTER);
+        require_once(__DIR__.DS."footer.php");
+        Plugins::run(AFTER_FOOTER);
+
+        // we handled this page
+        $result = true;
+      }
+
+      return $result;
+    }
+
   }
 
+  // register handler
+  Handlers::register(StartBootstrapBlogHome::class, "handler", StartBootstrapBlogHome::REGEX, [GET], ADDSLASH);
+
+  // register theme
+  Themes::register(StartBootstrapBlogHome::class, "theme", StartBootstrapBlogHome::class);
+
+  // register translation
+  Translate::register(__DIR__.DS."lang".DS, StartBootstrapBlogHome::class);

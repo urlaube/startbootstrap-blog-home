@@ -1,9 +1,11 @@
 {
-  "Archiv"    : "Archive",
-  "Autor"     : "Author",
-  "Jahr"      : "Year",
-  "Kategorie" : "Category",
-  "Monat"     : "Month",
-  "Suche"     : "Search",
-  "Tag"       : "Day"
+  "Archiv"         : "Archive",
+  "Autor"          : "Author",
+  "Dein Slogan"    : "Your Slogan",
+  "Deine Webseite" : "Your Website",
+  "Jahr"           : "Year",
+  "Kategorie"      : "Category",
+  "Monat"          : "Month",
+  "Suche"          : "Search",
+  "Tag"            : "Day"
 }

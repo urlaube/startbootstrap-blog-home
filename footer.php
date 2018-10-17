@@ -12,10 +12,10 @@
             <p>
 <?php
   // output COPYRIGHT_HTML if it is set or COPYRIGHT otherwise
-  if (null !== Themes::get("COPYRIGHT_HTML")) {
-    print(Themes::get("COPYRIGHT_HTML").NL);
+  if (null !== value(Themes::class, "copyright_html")) {
+    print(value(Themes::class, "copyright_html").NL);
   } else {
-    print(html(Themes::get(COPYRIGHT)).NL);
+    print(html(value(Themes::class, COPYRIGHT)).NL);
   }
 ?>
             </p>

@@ -66,17 +66,17 @@
     <![endif]-->
   </head>
 
-  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+  <body id="page-top" data-target=".navbar-fixed-top">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-        <div class="navbar-header page-scroll">
+        <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand page-scroll" href="<?= html(value(Main::class, ROOTURI)) ?>">
+          <a class="navbar-brand" href="<?= html(value(Main::class, ROOTURI)) ?>">
 <?php
   if (null !== value(Themes::class, LOGO)) {
 ?>
@@ -96,7 +96,7 @@
           <ul class="nav navbar-nav">
             <!-- Hidden li included to remove active class from first menu link when scrolled up past first section section -->
             <li class="hidden">
-              <a class="page-scroll" href="#page-top"></a>
+              <a href="#page-top"></a>
             </li>
 <?php
   // iterate through the menu entries to generate the link bar
@@ -105,8 +105,13 @@
     foreach ($menu as $menu_item) {
       if (is_array($menu_item)) {
         if (isset($menu_item[TITLE]) && isset($menu_item[URI])) {
+          // set active menu item
+          $liclass = "";
+          if (0 === strcmp($menu_item[URI], value(Main::class, URI))) {
+            $liclass = SP."class=\"active\"";
+          }
 ?>
-            <li>
+            <li<?= $liclass ?>>
               <a href="<?= html($menu_item[URI]) ?>"><?= html($menu_item[TITLE]) ?></a>
             </li>
 <?php

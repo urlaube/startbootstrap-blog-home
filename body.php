@@ -86,7 +86,7 @@
       $uri = value($content_item, URI);
     }
 ?>
-          <!-- <?= html($title); ?> Section -->
+          <!-- <?= html($title) ?> Section -->
           <section id="section-<?= html($index) ?>" class="content-section">
             <h2>
 <?php

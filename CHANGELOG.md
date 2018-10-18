@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1a10 (19.10.2018)
+### Features
+* activate the menu entry if the entry's URI is currently on display
+* zoom in/out of the menu logo when the menu bar is expanded/collapse
+
 ## 0.1a9 (17.10.2018)
 ### Bugfixes
 * improve how code blocks look like

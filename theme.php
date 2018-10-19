@@ -163,7 +163,7 @@
                 (null !== value($metadata, ArchiveHandler::YEAR))) {
               $result = t("Archiv", StartBootstrapBlogHome::class).":".SP;
 
-              $parts = [];            
+              $parts = [];
               if (null !== value($metadata, ArchiveHandler::DAY)) {
                 $parts[] .= t("Tag", StartBootstrapBlogHome::class).SP.value($metadata, ArchiveHandler::DAY);
               }
@@ -188,7 +188,7 @@
 
           case SearchHandler::class:
             $result = t("Suche", StartBootstrapBlogHome::class).":".SP.strtr(value($metadata, SearchHandler::SEARCH), DOT, SP);
-            break; 
+            break;
         }
       }
 

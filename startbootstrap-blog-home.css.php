@@ -141,7 +141,7 @@ section img {
 section li,
 section ol,
 section ul {
-  margin : 10px 0 10px 0; 
+  margin : 10px 0 10px 0;
 }
 
 section div.panel,

@@ -7,6 +7,7 @@
 
 ### Bugfixes
 * fixed line breaks and trailing whitspace
+* headline in list now has same font-weight as on single page
 
 ## 0.1a9 (17.10.2018)
 ### Bugfixes

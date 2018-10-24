@@ -117,8 +117,7 @@ section h2 a,
 section h3 a,
 section h4 a,
 section h5 a {
-  color       : #000000;
-  font-weight : bold;
+  color : #000000;
 }
 
 section h1 a:focus,

@@ -25,7 +25,7 @@
   $feeduri = feeduri();
   if (null !== $feeduri) {
 ?>
-    <link rel="alternate" type="application/rss+xml" href="html($feeduri)" />
+    <link rel="alternate" type="application/rss+xml" href="<?= html($feeduri) ?>" />
 <?php
   }
 ?>

@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.1a10
+    @version 0.1a11
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -196,7 +196,7 @@
     }
 
     protected static function getDefaultTitle() {
-      $result = value(Themes::class, SITESLOGAN).SP."|".SP.value(Themes::class, SITENAME);
+      $result = value(Themes::class, SITENAME).SP."-".SP.value(Themes::class, SITESLOGAN);
 
       if (null !== value(Themes::class, PAGENAME)) {
         $result = value(Themes::class, PAGENAME).SP."|".SP.$result;

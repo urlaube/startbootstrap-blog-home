@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1a11 (25.10.2018)
+### Bugfixes
+* fixed alternate URL in `head.php`
+* fixed link color in sidebar
+* improved default title
+
 ## 0.1a10 (19.10.2018)
 ### Features
 * activate the menu entry if the entry's URI is currently on display

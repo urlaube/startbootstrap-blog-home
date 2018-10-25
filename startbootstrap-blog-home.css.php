@@ -168,12 +168,12 @@ section ul {
   text-align : justify;
 }
 
-section p a {
+a {
   color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
-section p a:focus,
-section p a:hover {
+a:focus,
+a:hover {
   color : #000000;
 }
 

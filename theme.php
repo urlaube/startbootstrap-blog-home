@@ -221,24 +221,27 @@
     public static function handler() {
      $result = false;
 
-      $metadata = static::parseUri(relativeuri());
-      if (null !== $metadata) {
-        // check if the URI is correct
-        $fixed = static::getUri($metadata);
-        if (0 !== strcmp(value(Main::class, URI), $fixed)) {
-          relocate($fixed, false, true);
+      // only proceed when this is the active theme
+      if (0 === strcasecmp(static::class, value(Main::class, THEMENAME))) {
+        $metadata = static::parseUri(relativeuri());
+        if (null !== $metadata) {
+          // check if the URI is correct
+          $fixed = static::getUri($metadata);
+          if (0 !== strcmp(value(Main::class, URI), $fixed)) {
+            relocate($fixed, false, true);
 
-          // we handled this page
-          $result = true;
-        } else {
-          // preset handler configuration
-          static::configureHandler();
+            // we handled this page
+            $result = true;
+          } else {
+            // preset handler configuration
+            static::configureHandler();
 
-          // generate the CSS file output
-          require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
+            // generate the CSS file output
+            require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
 
-          // we handled this page
-          $result = true;
+            // we handled this page
+            $result = true;
+          }
         }
       }
 

@@ -6,6 +6,7 @@
 * fixed link color in sidebar
 * improved default title
 * only execute handler when theme is active
+* modified the handler so that redirect which correct the URI still retain the query string
 
 ## 0.1a10 (19.10.2018)
 ### Features

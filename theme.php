@@ -132,7 +132,7 @@
         }
       }
 
-      $result = implode(",".SP, $words);
+      $result = implode(DP.SP, $words);
 
       return $result;
     }
@@ -161,7 +161,7 @@
             if ((null !== value($metadata, ArchiveHandler::DAY)) ||
                 (null !== value($metadata, ArchiveHandler::MONTH)) ||
                 (null !== value($metadata, ArchiveHandler::YEAR))) {
-              $result = t("Archiv", StartBootstrapBlogHome::class).":".SP;
+              $result = t("Archiv", StartBootstrapBlogHome::class).COL.SP;
 
               $parts = [];
               if (null !== value($metadata, ArchiveHandler::DAY)) {
@@ -174,20 +174,20 @@
                 $parts[] .= t("Jahr", StartBootstrapBlogHome::class).SP.value($metadata, ArchiveHandler::YEAR);
               }
 
-              $result .= implode(",".SP, $parts);
+              $result .= implode(DP.SP, $parts);
             }
             break;
 
           case AuthorHandler::class:
-            $result = t("Autor", StartBootstrapBlogHome::class).":".SP.value($metadata, AUTHOR);
+            $result = t("Autor", StartBootstrapBlogHome::class).COL.SP.value($metadata, AUTHOR);
             break;
 
           case CategoryHandler::class:
-            $result = t("Kategorie", StartBootstrapBlogHome::class).":".SP.value($metadata, CATEGORY);
+            $result = t("Kategorie", StartBootstrapBlogHome::class).COL.SP.value($metadata, CATEGORY);
             break;
 
           case SearchHandler::class:
-            $result = t("Suche", StartBootstrapBlogHome::class).":".SP.strtr(value($metadata, SearchHandler::SEARCH), DOT, SP);
+            $result = t("Suche", StartBootstrapBlogHome::class).COL.SP.strtr(value($metadata, SearchHandler::SEARCH), DOT, SP);
             break;
         }
       }
@@ -228,20 +228,17 @@
           // check if the URI is correct
           $fixed = static::getUri($metadata);
           if (0 !== strcmp(value(Main::class, URI), $fixed)) {
-            relocate($fixed, false, true);
-
-            // we handled this page
-            $result = true;
+            relocate($fixed.querystring(), false, true);
           } else {
             // preset handler configuration
             static::configureHandler();
 
             // generate the CSS file output
             require_once(__DIR__.DS."startbootstrap-blog-home.css.php");
-
-            // we handled this page
-            $result = true;
           }
+
+          // we handled this page
+          $result = true;
         }
       }
 

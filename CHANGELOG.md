@@ -7,6 +7,7 @@
 * improved default title
 * only execute handler when theme is active
 * modified the handler so that redirect which correct the URI still retain the query string
+* do not set a canonical URI on error
 
 ## 0.1a10 (19.10.2018)
 ### Features

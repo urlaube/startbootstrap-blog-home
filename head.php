@@ -28,9 +28,11 @@
     <link rel="alternate" type="application/rss+xml" href="<?= html($feeduri) ?>" />
 <?php
   }
+  if (null !== value(Themes::class, CANONICAL)) {
 ?>
     <link rel="canonical" href="<?= html(value(Themes::class, CANONICAL)) ?>">
 <?php
+  }
   $next = nextpage();
   if (null !== $next) {
 ?>

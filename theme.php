@@ -87,7 +87,14 @@
     }
 
     protected static function getDefaultCanonical() {
-      return value(Main::class, URI);
+      $result = null;
+
+      // do not set a canonical URI on error
+      if (ErrorHandler::class !== Handlers::getActive()) {
+        $result = value(Main::class, URI);
+      }
+
+      return $result;
     }
 
     protected static function getDefaultCharset() {

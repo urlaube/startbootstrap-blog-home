@@ -39,7 +39,7 @@
 
     $author  = value($content_item, AUTHOR);
     $content = value($content_item, CONTENT).NL;
-    $sticky  = value($content_item, STICKY);
+    $sticky  = value($content_item, StickyPlugin::STICKY);
     $title   = value($content_item, TITLE);
 
     // get the category string and covert it into an array
@@ -196,7 +196,7 @@
   Plugins::run(BEFORE_SIDEBAR);
 
   // execute widget plugins and check that some have returned
-  $widgets = widgets();
+  $widgets = callwidgets();
   if (is_array($widgets) && (0 < count($widgets))) {
 ?>
         <!-- Sidebar Content -->

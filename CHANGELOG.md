@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a12 (03.11.2018)
+### Features
+* updated theme to be compatible with Urlaube 0.1a10
+
 ## 0.1a11 (25.10.2018)
 ### Bugfixes
 * fixed alternate URL in `head.php`

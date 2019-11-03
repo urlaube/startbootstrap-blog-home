@@ -25,7 +25,7 @@
     </section>
 
     <!-- jQuery -->
-    <script src="<?= html(path2uri(__DIR__."/js/jquery.js")) ?>"></script>
+    <script src="<?= html(path2uri(__DIR__."/js/jquery.min.js")) ?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= html(path2uri(__DIR__."/js/bootstrap.min.js")) ?>"></script>

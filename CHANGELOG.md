@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a13 (03.11.2019)
+### Features
+* updated dependencies
+
 ## 0.1a12 (03.11.2018)
 ### Features
 * updated theme to be compatible with Urlaube 0.1a10

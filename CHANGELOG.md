@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2a0 (24.08.2021)
+### Bugfixes
+* pagination now has correct colours
+
+### Features
+* updated dependencies
+* improved colour scheme
+
 ## 0.1a13 (03.11.2019)
 ### Features
 * updated dependencies

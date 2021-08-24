@@ -114,7 +114,7 @@
           }
 ?>
             <li<?= $liclass ?>>
-              <a href="<?= html($menu_item[URI]) ?>"><?= html($menu_item[TITLE]) ?></a>
+              <a href="<?= html($menu_item[URI]) ?>" title="<?= html($menu_item[TITLE]) ?>"><?= html($menu_item[TITLE]) ?></a>
             </li>
 <?php
         }

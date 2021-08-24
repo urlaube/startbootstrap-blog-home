@@ -93,23 +93,43 @@ html {
   border-color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
+.navbar-default .navbar-brand:before,
+.navbar-default .navbar-nav>li>a:before {
+    content     : attr(title);
+    display     : block;
+    font-weight : bold;
+    height      : 0;
+    overflow    : hidden;
+    visibility  : hidden;
+}
+
 .navbar-default .navbar-brand,
 .navbar-default .navbar-nav>li>a {
-  color : #eeeeee;
+  color       : #fff;
+  font-weight : normal;
 }
 
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-  color : #bbb;
+  color       : #fff;
+  font-weight : bold;
 }
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-  background : <?= html(value(Themes::class, "light_color")) ?>;
-  color      : #111111;
+  background  : <?= html(value(Themes::class, "light_color")) ?>;
+  color       : #333;
+  font-weight : normal;
+}
+
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+  background  : <?= html(value(Themes::class, "light_color")) ?>;
+  color       : #333;
+  font-weight : bold;
 }
 
 section h1 a,
@@ -117,7 +137,7 @@ section h2 a,
 section h3 a,
 section h4 a,
 section h5 a {
-  color : #000000;
+  color : #333;
 }
 
 section h1 a:focus,
@@ -168,13 +188,15 @@ section ul {
   text-align : justify;
 }
 
-a {
+a,
+.pagination > li > a {
   color : <?= html(value(Themes::class, "dark_color")) ?>;
 }
 
 a:focus,
-a:hover {
-  color : #000000;
+a:hover,
+.pagination > li > a:hover {
+  color : #333;
 }
 
 .content-section {
@@ -183,7 +205,7 @@ a:hover {
 }
 
 .empty-section {
-  background     : #ffffff;
+  background     : #fff;
   padding-bottom : 75px;
   padding-top    : 75px;
 }
@@ -198,7 +220,7 @@ a:hover {
 
 .footer-section {
   background     : <?= html(value(Themes::class, "dark_color")) ?> !important;
-  color          : #eeeeee !important;
+  color          : #eee !important;
   padding-bottom : 50px !important;
   padding-top    : 50px !important;
 }

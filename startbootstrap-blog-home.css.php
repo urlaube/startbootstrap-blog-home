@@ -104,26 +104,26 @@ html {
 }
 
 .navbar-default .navbar-brand,
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav>li>a:focus {
   color       : #fff;
   font-weight : normal;
 }
 
-.navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover,
-.navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
   color       : #fff;
   font-weight : bold;
 }
 
-.navbar-default .navbar-nav>.active>a {
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus {
   background  : <?= html(value(Themes::class, "light_color")) ?>;
   color       : #333;
   font-weight : normal;
 }
 
-.navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
   background  : <?= html(value(Themes::class, "light_color")) ?>;
   color       : #333;

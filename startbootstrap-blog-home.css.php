@@ -117,9 +117,7 @@ html {
   font-weight : bold;
 }
 
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:focus,
-.navbar-default .navbar-nav>.active>a:hover {
+.navbar-default .navbar-nav>.active>a {
   background  : <?= html(value(Themes::class, "light_color")) ?>;
   color       : #333;
   font-weight : normal;

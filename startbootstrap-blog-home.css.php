@@ -240,3 +240,5 @@ a:hover,
 .hidden-border div.panel-body {
   padding : 0;
 }
+
+<?= html(value(Themes::class, "custom_css")) ?>

@@ -46,6 +46,12 @@ Themes::set(COPYRIGHT, static::getDefaultCopyright());
 Themes::set("copyright_html", null);
 ```
 
+### Custom CSS
+You can set the following value to add custom CSS to your theme:
+```
+Themes::set("custom_css", "");
+```
+
 ### Description
 You can overwrite the auto-generated description header:
 ```

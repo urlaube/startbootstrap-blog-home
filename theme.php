@@ -46,6 +46,7 @@
     // HELPER FUNCTIONS
 
     protected static function configureHandler() {
+      Themes::preset("custom_css",  "");
       Themes::preset("dark_color",  "#666");
       Themes::preset("light_color", "#ccc");
     }

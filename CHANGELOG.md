@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3a0 (29.12.2023)
+### Features
+* support custom CSS through the `custom_css` configuration value
+
 ## 0.2a0 (24.08.2021)
 ### Bugfixes
 * pagination now has correct colours
@@ -42,7 +46,7 @@
 
 ## 0.1a8 (17.10.2018)
 ### Features
-* added support for BEFORE_SIDEBAR and AFTER_SIDEBAR plugins
+* added support for `BEFORE_SIDEBAR` and `AFTER_SIDEBAR` plugins
 
 ## 0.1a7 (17.10.2018)
 ### Features

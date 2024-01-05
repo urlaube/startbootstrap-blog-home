@@ -90,22 +90,24 @@
           <section id="section-<?= html($index) ?>" class="content-section">
             <h2>
 <?php
-    if (null !== $uri) {
+    if (null !== $title) {
+      if (null !== $uri) {
 ?>
               <a href="<?= html($uri) ?>">
 <?php
-    }
+      }
 ?>
                 <?= html($title.NL) ?>
 <?php
-    if (null !== $uri) {
+      if (null !== $uri) {
 ?>
               </a>
 <?php
-    }
+      }
 ?>
             </h2>
 <?php
+    }
     if ((null !== $author) || (null !== $category) || (null !== $date)) {
 ?>
             <p>

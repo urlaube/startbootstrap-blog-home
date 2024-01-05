@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4a0 (05.01.2024)
+### Bugfixes
+* do not generate empty headline if no title is set
+
 ## 0.3a0 (29.12.2023)
 ### Features
 * support custom CSS through the `custom_css` configuration value

@@ -88,9 +88,11 @@
 ?>
           <!-- <?= html($title) ?> Section -->
           <section id="section-<?= html($index) ?>" class="content-section">
-            <h2>
 <?php
     if (null !== $title) {
+?>
+            <h2>
+<?php
       if (null !== $uri) {
 ?>
               <a href="<?= html($uri) ?>">

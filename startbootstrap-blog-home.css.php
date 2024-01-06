@@ -241,4 +241,4 @@ a:hover,
   padding : 0;
 }
 
-<?= html(value(Themes::class, "custom_css")) ?>
+<?= html(value(Themes::class, CSS)) ?>

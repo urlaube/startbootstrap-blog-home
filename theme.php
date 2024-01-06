@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.4a0
+    @version 0.5a0
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -46,7 +46,7 @@
     // HELPER FUNCTIONS
 
     protected static function configureHandler() {
-      Themes::preset("custom_css",  "");
+      Themes::preset(CSS,           "");
       Themes::preset("dark_color",  "#666");
       Themes::preset("light_color", "#ccc");
     }
@@ -195,7 +195,7 @@
             break;
 
           case SearchHandler::class:
-            $result = t("Suche", StartBootstrapBlogHome::class).COL.SP.strtr(value($metadata, SearchHandler::SEARCH), DOT, SP);
+            $result = t("Suche", StartBootstrapBlogHome::class).COL.SP.strtr(value($metadata, SEARCH), DOT, SP);
             break;
         }
       }

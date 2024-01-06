@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5a0 (06.01.2024)
+### Features
+* support the recommended `CSS` configuration instead of `"custom_css"`
+
+### Bugfixes
+* use the correct `SEARCH` constant instead of `SearchHandler::SEARCH`
+
 ## 0.4a0 (05.01.2024)
 ### Bugfixes
 * do not generate empty headline if no title is set

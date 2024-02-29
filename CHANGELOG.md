@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5a1 (29.02.2024)
+### Features
+* improve FAVICON support
+
 ## 0.5a0 (06.01.2024)
 ### Features
 * support the recommended `CSS` configuration instead of `"custom_css"`

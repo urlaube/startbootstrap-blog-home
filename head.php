@@ -33,6 +33,11 @@
     <link rel="canonical" href="<?= html(value(Themes::class, CANONICAL)) ?>">
 <?php
   }
+  if (null !== value(Themes::class, FAVICON)) {
+?>
+    <link rel="icon" type="<?= html(mime_content_type(uri2path(value(Themes::class, FAVICON)))) ?>" href="<?= html(value(Themes::class, FAVICON)) ?>">
+<?php
+  }
   $next = nextpage();
   if (null !== $next) {
 ?>
@@ -43,11 +48,6 @@
   if (null !== $prev) {
 ?>
     <link rel="prev" href="<?= html($prev) ?>">
-<?php
-  }
-  if (null !== value(Themes::class, FAVICON)) {
-?>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= html(value(Themes::class, FAVICON)) ?>">
 <?php
   }
 ?>

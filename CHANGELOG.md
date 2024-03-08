@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5a2 (08.03.2024)
+### Feature
+* stick the footer to the bottom of the viewport
+
 ## 0.5a1 (29.02.2024)
 ### Features
 * improve FAVICON support

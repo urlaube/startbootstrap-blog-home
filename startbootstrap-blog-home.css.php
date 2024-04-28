@@ -200,6 +200,10 @@ a:hover,
   color : #333;
 }
 
+.container {
+  max-width : 95vw;
+}
+
 .content-section {
   padding-bottom : 10px;
   padding-top    : 10px;

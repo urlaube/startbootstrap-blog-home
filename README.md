@@ -49,7 +49,7 @@ Themes::set("copyright_html", null);
 ### Custom CSS
 You can set the following value to add custom CSS to your theme:
 ```
-Themes::set("custom_css", "");
+Themes::set(CSS, "");
 ```
 
 ### Description

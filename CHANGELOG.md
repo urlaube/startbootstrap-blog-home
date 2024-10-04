@@ -1,11 +1,15 @@
 # Changelog
 
+## 0.5a4 (04.10.2024)
+### Features
+* replace `_` in category names with spaces
+
 ## 0.5a3 (28.04.2024)
 ### Bugfixes
 * prevent PRE overflows
 
 ## 0.5a2 (08.03.2024)
-### Feature
+### Features
 * stick the footer to the bottom of the viewport
 
 ## 0.5a1 (29.02.2024)

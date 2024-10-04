@@ -145,7 +145,7 @@
 
           $link = CategoryHandler::getUri($metadata);
 ?>
-              <a href="<?= html($link) ?>"><?= html($category_item) ?></a>
+              <a href="<?= html($link) ?>"><?= html(str_replace("_", SP, $category_item)) ?></a>
 <?php
         }
       }

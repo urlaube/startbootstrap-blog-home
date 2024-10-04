@@ -191,7 +191,7 @@
             break;
 
           case CategoryHandler::class:
-            $result = t("Kategorie", StartBootstrapBlogHome::class).COL.SP.value($metadata, CATEGORY);
+            $result = t("Kategorie", StartBootstrapBlogHome::class).COL.SP.str_replace("_", SP, value($metadata, CATEGORY));
             break;
 
           case SearchHandler::class:

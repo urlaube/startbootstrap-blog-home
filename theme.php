@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.5a4
+    @version 0.5a5
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -187,7 +187,7 @@
             break;
 
           case AuthorHandler::class:
-            $result = t("Autor", StartBootstrapBlogHome::class).COL.SP.value($metadata, AUTHOR);
+            $result = t("Autor", StartBootstrapBlogHome::class).COL.SP.str_replace("_", SP, value($metadata, AUTHOR));
             break;
 
           case CategoryHandler::class:

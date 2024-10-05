@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5a5 (05.10.2024)
+### Features
+* replace `_` in author names with spaces
+
 ## 0.5a4 (04.10.2024)
 ### Features
 * replace `_` in category names with spaces

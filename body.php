@@ -133,7 +133,7 @@
         $link = AuthorHandler::getUri($metadata);
 ?>
               <span class="glyphicon glyphicon-user"></span>
-              <a href="<?= html($link) ?>"><?= html($author) ?></a>
+              <a href="<?= html($link) ?>"><?= html(str_replace("_", SP, $author)) ?></a>
 <?php
       }
       if (null !== $category) {

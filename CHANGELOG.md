@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5a6 (10.12.2025)
+### Features
+* support `logo_url` custom configuration
+* support `Section:` content values to set the ID of the section
+* support arrays as menu URIs so that multiple URIs mark the menu item as active
+
 ## 0.5a5 (05.10.2024)
 ### Features
 * replace `_` in author names with spaces

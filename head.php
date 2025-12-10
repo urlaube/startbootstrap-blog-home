@@ -78,7 +78,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?= html(value(Main::class, ROOTURI)) ?>">
+<?php
+  $logourl = value(Themes::class, "logo_url");
+  if (null === $logourl) {
+    $logourl = value(Main::class, ROOTURI);
+  }
+?>
+          <a class="navbar-brand" href="<?= html($logourl) ?>">
 <?php
   if (null !== value(Themes::class, LOGO)) {
 ?>
@@ -107,14 +113,39 @@
     foreach ($menu as $menu_item) {
       if (is_array($menu_item)) {
         if (isset($menu_item[TITLE]) && isset($menu_item[URI])) {
-          // set active menu item
           $liclass = "";
-          if (0 === strcmp($menu_item[URI], value(Main::class, URI))) {
-            $liclass = SP."class=\"active\"";
+          $uri     = "";
+          if (is_string($menu_item[URI])) {
+            $uri = $menu_item[URI];
+
+            // check if this is the active menu item
+            if (0 === strcmp($uri, value(Main::class, URI))) {
+              $liclass = SP."class=\"active\"";
+            }
+          } elseif (is_array($menu_item[URI]) && (0 < count($menu_item[URI]))) {
+            $uri = $menu_item[URI][0];
+
+            // iterate through all URIs to check if this is the active menu item
+            foreach ($menu_item[URI] as $tmp) {
+              if (0 === stripos($tmp, ":REGEX:")) {
+                if (1 === preg_match(substr($tmp, strlen(":REGEX:")), value(Main::class, URI))) {
+                  $liclass = SP."class=\"active\"";
+                }
+              } else {
+                if (0 === strcmp($tmp, value(Main::class, URI))) {
+                  $liclass = SP."class=\"active\"";
+                }
+              }
+
+              // only add the active class once
+              if (0 < strlen($liclass)) {
+                break;
+              }
+            }
           }
 ?>
             <li<?= $liclass ?>>
-              <a href="<?= html($menu_item[URI]) ?>" title="<?= html($menu_item[TITLE]) ?>"><?= html($menu_item[TITLE]) ?></a>
+              <a href="<?= html($uri) ?>" title="<?= html($menu_item[TITLE]) ?>"><?= html($menu_item[TITLE]) ?></a>
             </li>
 <?php
         }

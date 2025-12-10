@@ -6,7 +6,7 @@
     This file contains the theme class of the StartBootstrap-Blog-Home theme.
 
     @package urlaube\startbootstrap-blog-home
-    @version 0.5a5
+    @version 0.5a6
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -54,6 +54,7 @@
     protected static function configureTheme() {
       // individual theme configuration
       Themes::preset("copyright_html", null);
+      Themes::preset("logo_url",       null);
 
       // recommended theme configuration
       Themes::preset(AUTHOR,      static::getDefaultAuthor());
@@ -221,6 +222,18 @@
         }
       }
 
+      return $result;
+    }
+
+    // SOURCECODE HELPER FUNCTION
+    
+    public static function cleanString($string) {
+      $result = $string;
+                      
+      if (is_string($result)) {
+        $result = preg_replace('@[^0-9a-z\-]@', '', strtolower($result));
+      }
+    
       return $result;
     }
 

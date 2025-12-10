@@ -42,6 +42,14 @@
     $sticky  = value($content_item, StickyPlugin::STICKY);
     $title   = value($content_item, TITLE);
 
+    $id = StartBootstrapBlogHome::cleanString(value($content_item, "section"));
+    if (null === $id) {
+      $id = StartBootstrapBlogHome::cleanString($title);
+    }
+    if (null === $id) {
+      $id = "section-$index";
+    }
+
     // get the category string and covert it into an array
     $category = null;
     $catvalue = value($content_item, CATEGORY);
@@ -87,7 +95,7 @@
     }
 ?>
           <!-- <?= html($title) ?> Section -->
-          <section id="section-<?= html($index) ?>" class="content-section">
+          <section id="<?= html($id) ?>" class="content-section">
 <?php
     if (null !== $title) {
 ?>

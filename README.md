@@ -82,6 +82,11 @@ You can set the URL of an image file that is used as a website logo:
 Themes::set(LOGO, null);
 ```
 
+### Logo link URL
+You can set the target URL of the logo:
+```
+Themes::set("logo_url", null);
+
 ### Menu
 You can set the content of the site's menu:
 ```
@@ -125,3 +130,7 @@ You can overwrite the auto-generated title header:
 ```
 Themes::set(TITLE, static::getDefaultTitle());
 ```
+
+## Usage
+
+The theme creates a multi-page layout from the content files in the `./user/content/` folder and auto-generates a blog home for content files that have a `Date:` value set in the content file. Additionally, category pages are created for content files that have a `Category:` value set in the content file. Each entry gets its own #fragment URL from the cleaned-up `Title:` value in the content file. You can overwrite the auto-generated #fragment URL by setting the `Section:` value in the content file.
